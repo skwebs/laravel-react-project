@@ -1,48 +1,43 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Container, Table, Button, ButtonGroup, Card, Modal, FloatingLabel, Form } from 'react-bootstrap';
-
+import Loading from '../components/Loading';
 const baseUrl = "https://naitaknik.com/laravel-react-api/api/users";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   // const [password, setPassword] = useState('');
   const [userId, setUserId] = useState('');
 
+  useEffect(() => {
+    // async function fetchData() {
+    //   const res = await axios.get(baseUrl);
+    //   setUsers(res.data);
+    //   console.log(res.data);
+    // }
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    setLoading(true);
+    const res = await axios.get(baseUrl);
+    setUsers(res.data);
+    console.log(res.data);
+    setLoading(false);
+  }
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  async function fetchData() {
-    // get data by axios
-    const res = await axios.get(baseUrl);
-    const users = res.data;
-    // uncomment below line to use fetch api instead of axios
-    // const res = await fetch(baseUrl, { 'Content-Type': 'application/json' });
-    // const users = await res.json();
-    setUsers(users);
-    console.log(users);
-  }
-
-  //   axios.get('http://localhost:8000/api/users')
-  //     .then(response => {
-  //       setUsers(response.data);
-  //       console.log(response);
-  //     }).catch(error => {
-  //       console.log(error);
-  //     });
-  // }, []);
 
   async function editHandler(id) {
+    setLoading(true);
     const res = await axios.get(`${baseUrl}/${id}`);
     const user = await res.data;
     setUserId(id);
@@ -51,10 +46,12 @@ const Users = () => {
     // setPassword(user.password);
     console.log(name, email);
     handleShow();
+    setLoading(false);
   }
 
 
   async function updateHandler() {
+    setLoading(true);
     const res = await axios.put(`${baseUrl}/${userId}`, {
       name,
       email,
@@ -62,22 +59,26 @@ const Users = () => {
     fetchData();
     handleClose();
     console.log(res);
+    setLoading(false);
   }
 
   async function deleteHandler(id) {
     const conformDelete = window.confirm(`Are you sure to delete id no. ${id} ?`);
     if (conformDelete) {
+      setLoading(true);
       const res = await axios.delete(`${baseUrl}/${id}`);
       // const newUsers = users.filter(user => user.id !== id);
       // setUsers(newUsers);
       fetchData();
       console.log(res);
+      setLoading(false);
     }
   }
 
 
   return (
     <>
+      <Loading show={loading} />
       <Container fluid className="my-4">
         <Card>
           <Card.Body >

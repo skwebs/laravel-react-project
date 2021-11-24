@@ -1,9 +1,15 @@
-const login = () => {
-  return (
-    <div>
+import { useEffect } from 'react';
+const Login = () => {
+  useEffect(() => {
+    document.title = 'Login';
+  }, []);
 
-    </div>
+
+  return (
+    <>
+      <h1>Login</h1>
+    </>
   )
 }
 
-export default login;
+export default Login
