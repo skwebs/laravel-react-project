@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col, FloatingLabel, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 const Register = () => {
@@ -8,6 +8,11 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    console.log('Register');
+    setName(''); setEmail(''); setPassword('');
+  }, []);
 
   function registerHandler() {
     console.log(name, email, password);
