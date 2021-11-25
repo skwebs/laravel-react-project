@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Container, Table, Button, ButtonGroup, Card, Modal, FloatingLabel, Form } from 'react-bootstrap';
-import Loading from '../components/Loading';
+import Loading from './Loading';
 const baseUrl = "https://naitaknik.com/laravel-react-api/api/users";
 
 const Users = () => {

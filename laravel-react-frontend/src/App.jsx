@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Loading from './components/Loading';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navigation from "./components/Navigation";
 import AddProduct from './components/AddProduct';
