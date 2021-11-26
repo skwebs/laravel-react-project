@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import Users from "./components/Users";
+import MultipleInput from './components/MultipleInput';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/product/add" element={<ProtectedRoute protectedComp={AddProduct} />} />
           <Route path="/product/update" element={<ProtectedRoute protectedComp={UpdateProduct} />} />
           <Route path="/users" element={<ProtectedRoute protectedComp={Users} />} />
+          <Route path="/multipleInput" element={<ProtectedRoute protectedComp={MultipleInput} />} />
         </Routes>
       </BrowserRouter>
     </>

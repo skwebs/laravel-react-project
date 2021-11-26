@@ -24,6 +24,7 @@ const Navigation = () => {
               <Nav.Link as={NavLink} to="/login">Login</Nav.Link>
               <Nav.Link as={NavLink} to="/users">Users</Nav.Link>
               <NavDropdown title="Action" id="basic-nav-dropdown">
+                <NavDropdown.Item as={NavLink} to="/multipleInput">Multiple Input</NavDropdown.Item>
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>

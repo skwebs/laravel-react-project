@@ -2,7 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Container, Table, Button, ButtonGroup, Card, Modal, FloatingLabel, Form } from 'react-bootstrap';
 import Loading from './Loading';
-const baseUrl = "https://naitaknik.com/laravel-react-api/api/users";
+
+const apiBaseUrl = `${process.env.REACT_APP_NAITAKNIK_COM_LARAVEL_REACT_API_BASE_URL}/users`;
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -16,7 +17,7 @@ const Users = () => {
 
   useEffect(() => {
     // async function fetchData() {
-    //   const res = await axios.get(baseUrl);
+    //   const res = await axios.get(apiBaseUrl);
     //   setUsers(res.data);
     //   console.log(res.data);
     // }
@@ -25,7 +26,7 @@ const Users = () => {
 
   async function fetchData() {
     setLoading(true);
-    const res = await axios.get(baseUrl);
+    const res = await axios.get(apiBaseUrl);
     setUsers(res.data);
     console.log(res.data);
     setLoading(false);
@@ -38,7 +39,7 @@ const Users = () => {
 
   async function editHandler(id) {
     setLoading(true);
-    const res = await axios.get(`${baseUrl}/${id}`);
+    const res = await axios.get(`${apiBaseUrl}/${id}`);
     const user = await res.data;
     setUserId(id);
     setName(user.name);
@@ -52,7 +53,7 @@ const Users = () => {
 
   async function updateHandler() {
     setLoading(true);
-    const res = await axios.put(`${baseUrl}/${userId}`, {
+    const res = await axios.put(`${apiBaseUrl}/${userId}`, {
       name,
       email,
     });
@@ -66,7 +67,7 @@ const Users = () => {
     const conformDelete = window.confirm(`Are you sure to delete id no. ${id} ?`);
     if (conformDelete) {
       setLoading(true);
-      const res = await axios.delete(`${baseUrl}/${id}`);
+      const res = await axios.delete(`${apiBaseUrl}/${id}`);
       // const newUsers = users.filter(user => user.id !== id);
       // setUsers(newUsers);
       fetchData();
