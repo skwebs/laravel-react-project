@@ -8,7 +8,7 @@ const apiBaseUrl = `${process.env.REACT_APP_NAITAKNIK_COM_LARAVEL_REACT_API_BASE
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -25,11 +25,11 @@ const Users = () => {
   }, []);
 
   async function fetchData() {
-    setLoading(true);
+    setIsLoading(true);
     const res = await axios.get(apiBaseUrl);
     setUsers(res.data);
     console.log(res.data);
-    setLoading(false);
+    setIsLoading(false);
   }
 
   const handleClose = () => setShowModal(false);
@@ -38,48 +38,61 @@ const Users = () => {
 
 
   async function editHandler(id) {
-    setLoading(true);
-    const res = await axios.get(`${apiBaseUrl}/${id}`);
-    const user = await res.data;
-    setUserId(id);
-    setName(user.name);
-    setEmail(user.email);
-    // setPassword(user.password);
-    console.log(name, email);
-    handleShow();
-    setLoading(false);
-  }
 
-
-  async function updateHandler() {
-    setLoading(true);
-    const res = await axios.put(`${apiBaseUrl}/${userId}`, {
-      name,
-      email,
-    });
-    fetchData();
-    handleClose();
-    console.log(res);
-    setLoading(false);
-  }
-
-  async function deleteHandler(id) {
-    const conformDelete = window.confirm(`Are you sure to delete id no. ${id} ?`);
-    if (conformDelete) {
-      setLoading(true);
-      const res = await axios.delete(`${apiBaseUrl}/${id}`);
-      // const newUsers = users.filter(user => user.id !== id);
-      // setUsers(newUsers);
-      fetchData();
-      console.log(res);
-      setLoading(false);
+    setIsLoading(true);
+    try {
+      const res = await axios.get(`${apiBaseUrl}/${id}`);
+      setName(res.data.name);
+      setEmail(res.data.email);
+      setUserId(res.data.id);
+      setIsLoading(false);
+      handleShow();
+    } catch (error) {
+      console.log(error);
     }
   }
 
 
+
+  async function updateHandler() {
+    setIsLoading(true);
+    try {
+      const response = await axios.put(`${apiBaseUrl}/${userId}`, { name, email });
+      console.log(response.data);
+      setIsLoading(false);
+      handleClose();
+      fetchData();
+    } catch (error) {
+      console.log("Error responses", error.response.data);
+      setIsLoading(false);
+    }
+  }
+
+
+
+  async function deleteHandler(id) {
+    const conformDelete = window.confirm(`Are you sure to delete id no. ${id} ?`);
+    if (conformDelete) {
+      setIsLoading(true);
+      try {
+        const response = await axios.delete(`${apiBaseUrl}/${id}`);
+        console.log(response.data);
+        setIsLoading(false);
+        fetchData();
+      } catch (error) {
+        console.log("Error responses", error.response.data);
+        setIsLoading(false);
+      }
+    }
+  }
+
+
+
+
+
   return (
     <>
-      <Loading show={loading} />
+      <Loading show={isLoading} />
       <Container fluid className="my-4">
         <Card>
           <Card.Body >
