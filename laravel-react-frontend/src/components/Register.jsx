@@ -17,20 +17,14 @@ const Register = () => {
 
 
 
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+  const handleChange = e => {
+    const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
-    // console.log(name, value);
-    setUserData({
-      ...userData,
-      [e.target.name]: e.target.value
-    });
     console.log(userData);
   }
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
     try {

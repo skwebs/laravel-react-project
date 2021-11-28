@@ -12,15 +12,13 @@ const MultipleInput = () => {
 
   const [records, setRecords] = useState([]);
 
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+  const handleChange = e => {
+    const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
-
     console.log(userData);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     const newRecord = { ...userData, id: Date.now() };
@@ -41,24 +39,23 @@ const MultipleInput = () => {
           <Col className="mx-auto">
             <Form onSubmit={handleSubmit} >
               <Row>
-                <Col>
+                <Col xs={12} md={4} lg={3}>
                   <FloatingLabel controlId="name" label="Name" className="mb-3" >
                     <Form.Control type="text" name="name" value={userData.name} onChange={handleChange} placeholder="Name" />
                   </FloatingLabel>
                 </Col>
-                <Col>
+                <Col xs={12} md={4} lg={3}>
                   <FloatingLabel controlId="email" label="Email address" className="mb-3" >
                     <Form.Control type="email" name="email" value={userData.email} onChange={handleChange} placeholder="Email Address" />
                   </FloatingLabel>
                 </Col>
 
-                <Col>
-
+                <Col xs={12} md={4} lg={3}>
                   <FloatingLabel controlId="password" label="Password" className="mb-3" >
                     <Form.Control type="password" name="password" value={userData.password} onChange={handleChange} placeholder="Password" />
                   </FloatingLabel>
                 </Col>
-                <Col>
+                <Col xs={12} md={4} lg={3}>
                   <Button name="submit" variant="primary" type="submit">Store Records</Button>
                 </Col>
               </Row>

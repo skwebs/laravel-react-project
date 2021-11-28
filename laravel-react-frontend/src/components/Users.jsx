@@ -10,21 +10,20 @@ const Users = () => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+
   // const [password, setPassword] = useState('');
   const [userId, setUserId] = useState('');
 
+  const [editData, setEditData] = useState({
+    name: '',
+    email: ''
+  });
+
   useEffect(() => {
-    // async function fetchData() {
-    //   const res = await axios.get(apiBaseUrl);
-    //   setUsers(res.data);
-    //   console.log(res.data);
-    // }
     fetchData();
   }, []);
 
-  async function fetchData() {
+  const fetchData = async () => {
     setIsLoading(true);
     const res = await axios.get(apiBaseUrl);
     setUsers(res.data);
@@ -32,35 +31,42 @@ const Users = () => {
     setIsLoading(false);
   }
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const modalHandleClose = () => setShowModal(false);
+  const modalHandleShow = () => setShowModal(true);
 
+  const handleEdit = id => {
+    const filteredUser = users.filter(user => user.id === id);
 
+    const { name, email } = filteredUser[0];
+    console.log(name, email);
+    setEditData({
+      name: name,
+      email: email
+    });
 
-  async function editHandler(id) {
-
-    setIsLoading(true);
-    try {
-      const res = await axios.get(`${apiBaseUrl}/${id}`);
-      setName(res.data.name);
-      setEmail(res.data.email);
-      setUserId(res.data.id);
-      setIsLoading(false);
-      handleShow();
-    } catch (error) {
-      console.log(error);
-    }
+    setUserId(filteredUser[0].id);
+    console.log(filteredUser[0]);
+    console.log("editData", editData);
+    modalHandleShow();
   }
 
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setEditData({
+      ...editData,
+      [name]: value
+    });
+  }
 
+  const handleUpdate = async e => {
+    e.preventDefault();
 
-  async function updateHandler() {
     setIsLoading(true);
     try {
-      const response = await axios.put(`${apiBaseUrl}/${userId}`, { name, email });
+      const response = await axios.put(`${apiBaseUrl}/${userId}`, editData);
       console.log(response.data);
       setIsLoading(false);
-      handleClose();
+      modalHandleClose();
       fetchData();
     } catch (error) {
       console.log("Error responses", error.response.data);
@@ -69,8 +75,7 @@ const Users = () => {
   }
 
 
-
-  async function deleteHandler(id) {
+  const handleDelete = async id => {
     const conformDelete = window.confirm(`Are you sure to delete id no. ${id} ?`);
     if (conformDelete) {
       setIsLoading(true);
@@ -85,9 +90,6 @@ const Users = () => {
       }
     }
   }
-
-
-
 
 
   return (
@@ -117,8 +119,8 @@ const Users = () => {
                     <td>{user.updated_at}</td>
                     <td>
                       <ButtonGroup aria-label="Action buttons group">
-                        <Button onClick={() => editHandler(user.id)} variant="outline-primary" data-id={user.id}>Edit</Button>
-                        <Button onClick={() => deleteHandler(user.id)} variant="outline-danger" data-id={user.id}>Delete</Button>
+                        <Button onClick={() => handleEdit(user.id)} variant="outline-primary" >Edit</Button>
+                        <Button onClick={() => handleDelete(user.id)} variant="outline-danger" >Delete</Button>
                       </ButtonGroup>
                     </td>
                   </tr>
@@ -129,28 +131,32 @@ const Users = () => {
         </Card>
       </Container>
 
-      <Modal show={showModal} onHide={handleClose}>
+      <Modal show={showModal} onHide={modalHandleClose}>
         <Modal.Header closeButton>
           <Modal.Title>User-id {userId}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FloatingLabel controlId="name" label="Name" className="mb-3" >
-            <Form.Control value={name} type="name" onChange={(e) => setName(e.target.value)} placeholder="Name" />
-          </FloatingLabel>
-          <FloatingLabel controlId="email" label="Email address" className="mb-3" >
-            <Form.Control value={email} type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email Address" />
-          </FloatingLabel>
-          {/* <FloatingLabel controlId="password" label="Password" className="mb-3" >
+          <Form onSubmit={handleUpdate}>
+            <FloatingLabel controlId="name" label="Name" className="mb-3" >
+              <Form.Control name="name" value={editData.name} type="text" onChange={handleChange} placeholder="Name" />
+            </FloatingLabel>
+            <FloatingLabel controlId="email" label="Email address" className="mb-3" >
+              <Form.Control name="email" value={editData.email} type="email" onChange={handleChange} placeholder="Email Address" />
+            </FloatingLabel>
+            {/* <FloatingLabel controlId="password" label="Password" className="mb-3" >
             <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
           </FloatingLabel> */}
+            <Button variant="primary me-3" onClick={handleUpdate}>
+              Update
+            </Button>
+            <Button variant="outline-danger" onClick={modalHandleClose}>
+              Cancel
+            </Button>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={updateHandler}>
-            Save Changes
-          </Button>
+
+
         </Modal.Footer>
       </Modal>
     </>
