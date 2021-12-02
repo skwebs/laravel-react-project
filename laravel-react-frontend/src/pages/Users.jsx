@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Container, Table, Button, ButtonGroup, Card, Modal, FloatingLabel, Form } from 'react-bootstrap';
-import Loading from './Loading';
+import Loading from '../components/Loading';
+
 
 const apiBaseUrl = `${process.env.REACT_APP_NAITAKNIK_COM_LARAVEL_REACT_API_BASE_URL}/users`;
 

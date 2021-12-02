@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Container, Row, Col, FloatingLabel, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
-import Loading from './Loading';
+import Loading from '../components/Loading';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import React from 'react';
 
 const Register = () => {
 
@@ -80,10 +81,10 @@ const Register = () => {
                 <Form.Control type="text" name="name" value={userData.name} onChange={handleChange} placeholder="Name" />
               </FloatingLabel>
               <FloatingLabel controlId="email" label="Email address" className="mb-3" >
-                <Form.Control type="email" name="email" value={userData.email} onChange={handleChange} placeholder="Email Address" />
+                <Form.Control autoComplete="username" type="email" name="email" value={userData.email} onChange={handleChange} placeholder="Email Address" />
               </FloatingLabel>
               <FloatingLabel controlId="password" label="Password" className="mb-3" >
-                <Form.Control type="password" name="password" value={userData.password} onChange={handleChange} placeholder="Password" />
+                <Form.Control autoComplete="current-password" type="password" name="password" value={userData.password} onChange={handleChange} placeholder="Password" />
               </FloatingLabel>
               <Button name="submit" variant="primary" type="submit">Register</Button>
               <Button variant="outline-danger ms-3" type="reset">Reset</Button>

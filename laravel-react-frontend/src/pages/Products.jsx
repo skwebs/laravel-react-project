@@ -1,9 +1,10 @@
 // import axios from 'axios';
+import React from 'react';
 import { useState } from 'react';
 import { Container, Row, Col, FloatingLabel, Form, Button } from 'react-bootstrap';
 
 
-const AddProduct = () => {
+const Product = () => {
 
   const baseUrl = 'https://anshumemorial.in/lv8_api/api/products';
 
@@ -84,4 +85,4 @@ const AddProduct = () => {
   )
 }
 
-export default AddProduct
+export default Product

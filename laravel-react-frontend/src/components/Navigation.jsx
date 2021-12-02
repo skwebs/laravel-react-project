@@ -1,25 +1,27 @@
+import React from 'react';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 const Navigation = () => {
-
+  const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    console.log('logout');
-    alert('clicked on logout');
+    // localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
+    console.log('logged out');
+    // alert('clicked on logout');
   }
 
 
   return (
     <>
-      <Navbar bg="light" expand="lg" className="shadow-sm mb-4">
+      <Navbar bg="light" fixed="top" expand="lg" className="shadow-sm mb-5">
         <Container>
           <Navbar.Brand as={NavLink} to="/">Laravel-React</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               <Nav.Link as={NavLink} to="/">Home</Nav.Link>
-              <Nav.Link as={NavLink} to="/product/add">Add Product</Nav.Link>
-              <Nav.Link as={NavLink} to="/product/update">Update Product</Nav.Link>
+              <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
               <Nav.Link as={NavLink} to="/register">Register</Nav.Link>
               <Nav.Link as={NavLink} to="/login">Login</Nav.Link>
               <Nav.Link as={NavLink} to="/users">Users</Nav.Link>
