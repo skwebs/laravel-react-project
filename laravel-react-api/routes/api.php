@@ -17,6 +17,8 @@ use App\Http\Controllers\UserCtrl;
 */
 
 Route::post('/register', [UserController::class, 'register']);
+Route::post('/login2', [UserController::class, 'login']);
+Route::post('/login', [UserCtrl::class, 'login']);
 
 Route::get('/users', [UserCtrl::class, 'index']);
 Route::post('/users', [UserCtrl::class, 'store']);

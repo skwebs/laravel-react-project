@@ -22,4 +22,19 @@ class UserController extends Controller
             'user' => $user
         ], 201);
     }
+
+    public function login(Request $request)
+    {
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        if (auth()->attempt($credentials)) {
+            $token = auth()->user()->createToken('authToken')->accessToken;
+            return response()->json(['token' => $token], 200);
+        } else {
+            return response()->json(['error' => 'UnAuthorised'], 401);
+        }
+    }
 }

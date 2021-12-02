@@ -136,4 +136,31 @@ class UserCtrl extends Controller
             'message' => 'Successfully deleted user!'
         ]);
     }
+
+    public function login(Request $request)
+    {
+
+        // return $request->all();
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|min:6|max:20',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        if (password_verify($request->password, $user->password)) {
+            return response()->json(['responseCode' => 0, 'message' => 'Login successful', 'user' => $user], 200);
+        } else {
+            return response()->json(['message' => 'Invalid password'], 400);
+        }
+    }
 }
