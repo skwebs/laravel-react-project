@@ -1,0 +1,19 @@
+.offcanvas {
+  // background-color: var(--color-white);
+  color: var(--bs-light);
+  width: 250px;
+  & .custom_nav {
+    flex-direction: column;
+  }
+  & .custom_nav .nav-link {
+    padding-left: 1.5rem;
+    // padding-right: 1.25rem;
+    color: var(--bs-dark);
+    &:hover {
+      background-color: var(--bs-light);
+    }
+    &:active {
+      background-color: var(--bs-light);
+    }
+  }
+}

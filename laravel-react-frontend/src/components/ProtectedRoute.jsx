@@ -1,25 +1,25 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-const ProtectedRoute = (props) => {
-  const navigate = useNavigate();
+import { Navigate, Outlet } from "react-router";
+
+const useAuth = () => {
+
+  return localStorage.getItem("token");
+}
+
+//   const user = {
+//     loggedIn: false
+//   }
+//   return user && user.loggedIn;
+// }
+
+const ProtectedRoute = () => {
   useEffect(() => {
-    // const token = true;
-    const token = localStorage.getItem('token');
-    // const user = localStorage.getItem('user');
-
-    if (!token) {
-      // if (user === null) {
-      navigate('/login');
+    if (!localStorage.getItem("token")) {
+      <Navigate to="/login" />
     }
-  }, [navigate]);
-
-  const ProtectedComponent = props.protectedComp;
-
-  return (
-    <>
-      <ProtectedComponent />
-    </>
-  )
+  }, []);
+  const isAuth = useAuth();
+  return isAuth ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default ProtectedRoute

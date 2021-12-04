@@ -62,6 +62,14 @@ const Login = () => {
     }
   }
 
+  const falseLogin = () => {
+    const tkn = Date.now();
+    localStorage.token = tkn;
+    // localStorage.setItem("token", tkn);
+    console.log("token", localStorage.token);
+    navigate('/');
+  }
+
   return (
     <>
       <Loading show={isLoading} />
@@ -79,6 +87,7 @@ const Login = () => {
               </FloatingLabel>
               <Button name="submit" variant="primary" type="submit">Login</Button>
             </Form>
+            <Button variant="primary my-4" onClick={falseLogin}>False Login</Button>
           </Col>
         </Row>
       </Container>
