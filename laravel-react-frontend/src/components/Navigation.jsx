@@ -22,7 +22,7 @@ const Navigation = () => {
   }
   const menus = ['Home', 'About', 'Contact', 'Products', 'Users', 'Register', 'Login'];
   const renderMenuItems = (
-    <Nav className="ms-auto custom_nav">
+    <Nav className="ms-auto">
       {menus.map((menu, index) => (
         <Nav.Link className="nav-item" onClick={handleClose} as={NavLink} key={index} to={menu === "Home" ? "/" : `/${menu.toLowerCase()}`}>{menu}</Nav.Link>
       ))}
@@ -47,28 +47,27 @@ const Navigation = () => {
   //   </Nav>
   // );
 
+
+
   return (
     <>
+
       <Navbar bg="light" fixed="top" expand="lg" className="shadow-sm mb-5">
         <Container>
           <Navbar.Brand as={NavLink} to="/">Laravel-React</Navbar.Brand>
-
           <button onClick={handleShow} className={`d-lg-none ${act} hamburger hamburger--slider`} type="button">
             <span className="hamburger-box">
               <span className="hamburger-inner" />
             </span>
           </button>
-
-          {/* <Navbar.Toggle onClick={handleShow} /> */}
+          {/* <Navbar.Toggle onClick={handleShow} />  */}
           <Navbar.Collapse id="basic-navbar-nav">
             {renderMenuItems}
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-
-
-      <Offcanvas className="d-lg-none" show={show} onHide={handleClose} onShow={handleShow}>
+      <Offcanvas className="sidebar d-lg-none" show={show} onHide={handleClose} onShow={handleShow}>
         <Offcanvas.Header className="bg-primary">
           <Offcanvas.Title>Laravel-React</Offcanvas.Title>
         </Offcanvas.Header>
