@@ -1,4 +1,6 @@
 @use "./custom_bootstrap/customized_bootstrap";
-@import "./navbar.scss";
+@import "./navbar";
 // @import "./../../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss";
-@import "./hamburgers/custom_hamburgers.scss";
+@import "./hamburgers/custom_hamburgers";
+@import "./fixed_header_footer";
+@import "./footer";

@@ -1,0 +1,16 @@
+.footer-links .footer-link {
+  margin: 2px;
+  display: inline-block;
+  color: var(--bs-gray);
+  text-decoration: none;
+  transition: 0.5s;
+
+  &:hover {
+    color: #aaa;
+    text-decoration: underline;
+  }
+}
+
+.copyright {
+  background: rgba(0, 0, 0, 0.15);
+}

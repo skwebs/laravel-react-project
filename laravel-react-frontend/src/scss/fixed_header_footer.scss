@@ -1,0 +1,27 @@
+$darkblue: #060e5f;
+$hamburger-color: #0275d8;
+
+footer {
+  background-color: $darkblue;
+  color: rgb(150, 150, 150);
+  text-align: center;
+}
+.app {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100vh !important;
+}
+
+main {
+  /* By setting flex-grow to 1, the main content will take up
+ all of the remaining space on the page (the other elements have flex-grow: 0 and won't contest the free space). */
+  /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
+  flex: 1 0 auto !important;
+}
+
+header,
+footer {
+  /* We want the header to have a static height - it will always take up just as much space as it needs.  */
+  /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+  flex: 0 0 auto !important;
+}

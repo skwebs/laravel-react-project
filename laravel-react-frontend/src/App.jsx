@@ -4,6 +4,7 @@ import './scss/index.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 import Products from './pages/Products';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -15,18 +16,15 @@ import MultipleInput from './pages/MultipleInput';
 import PageNotFound from './pages/PageNotFound';
 
 function App() {
-
-
-
   return (
-    <>
-      {/* <Loading show={true} /> */}
-      {/* <BrowserRouter basename="/laravel-react-app/"> */}
+    <div className="vh-100 d-flex flex-column">
       <BrowserRouter>
+        {/* <Loading show={true} /> */}
+        {/* <BrowserRouter basename="/laravel-react-app/"> */}
         <header>
           <Navigation />
         </header>
-        <main className="mt-5 pt-5">
+        <main className="mt-5 pt-4">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -41,8 +39,11 @@ function App() {
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </main>
+        <footer className="bg-dark">
+          <Footer />
+        </footer>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

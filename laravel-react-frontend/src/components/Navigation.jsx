@@ -24,9 +24,9 @@ const Navigation = () => {
   const renderMenuItems = (
     <Nav className="ms-auto custom_nav">
       {menus.map((menu, index) => (
-        <Nav.Link onClick={handleClose} as={NavLink} key={index} to={menu === "Home" ? "/" : `/${menu.toLowerCase()}`}>{menu}</Nav.Link>
+        <Nav.Link className="nav-item" onClick={handleClose} as={NavLink} key={index} to={menu === "Home" ? "/" : `/${menu.toLowerCase()}`}>{menu}</Nav.Link>
       ))}
-      <NavDropdown title="Action" id="basic-nav-dropdown">
+      <NavDropdown align={{ lg: 'end' }} title="Action" id="basic-nav-dropdown">
         <NavDropdown.Item onClick={handleClose} as={NavLink} to="/multipleInput">Multiple Input</NavDropdown.Item>
         <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
       </NavDropdown>
